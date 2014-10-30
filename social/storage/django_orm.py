@@ -41,7 +41,7 @@ class DjangoUserMixin(UserMixin):
         alternative_username = strategy.setting(
             'ALTERNATE_USERNAME_FIELD', None)
         if alternative_username:
-            return getattr(cls.user_model(), alternative_username)
+            return alternative_username
         else:
             return getattr(cls.user_model(), 'USERNAME_FIELD', 'username')
 
