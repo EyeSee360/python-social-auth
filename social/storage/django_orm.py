@@ -4,6 +4,7 @@ import six
 
 from social.storage.base import UserMixin, AssociationMixin, NonceMixin, \
                                 CodeMixin, BaseStorage
+from social.strategies.utils import get_current_strategy
 
 
 class DjangoUserMixin(UserMixin):
@@ -36,6 +37,13 @@ class DjangoUserMixin(UserMixin):
 
     @classmethod
     def username_field(cls):
+        strategy = get_current_strategy()
+        alternative_username = strategy.setting(
+            'ALTERNATE_USERNAME_FIELD', None)
+        if alternative_username:
+            return alternative_username
+        else:
+            return getattr(cls.user_model(), 'USERNAME_FIELD', 'username')
         return getattr(cls.user_model(), 'USERNAME_FIELD', 'username')
 
     @classmethod
