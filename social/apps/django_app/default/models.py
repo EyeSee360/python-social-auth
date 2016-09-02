@@ -40,6 +40,7 @@ class UserSocialAuth(models.Model, DjangoUserMixin):
         """Meta data"""
         unique_together = ('provider', 'uid')
         db_table = 'social_auth_usersocialauth'
+        app_label = 'social_auth'
 
     @classmethod
     def get_social_auth(cls, provider, uid):
@@ -72,6 +73,7 @@ class Nonce(models.Model, DjangoNonceMixin):
 
     class Meta:
         db_table = 'social_auth_nonce'
+        app_label = 'social_auth'
 
 
 class Association(models.Model, DjangoAssociationMixin):
@@ -85,6 +87,7 @@ class Association(models.Model, DjangoAssociationMixin):
 
     class Meta:
         db_table = 'social_auth_association'
+        app_label = 'social_auth'
 
 
 class Code(models.Model, DjangoCodeMixin):
@@ -94,6 +97,7 @@ class Code(models.Model, DjangoCodeMixin):
 
     class Meta:
         db_table = 'social_auth_code'
+        app_label = 'social_auth'
         unique_together = ('email', 'code')
 
 
